@@ -27,7 +27,6 @@ table.addEventListener("click", (e) => {
     turn = false;
     const type = ele.innerText;
     const pos = Number(ele.id);
-    console.log(typeMap.get(type));
     typeMap.set(type, [...typeMap.get(type), pos]);
   } else if (ele.innerText === "/") {
     ele.innerText = "X";
@@ -35,7 +34,6 @@ table.addEventListener("click", (e) => {
     turn = true;
     const type = ele.innerText;
     const pos = Number(ele.id);
-    console.log(typeMap.get(type));
     typeMap.set(type, [...typeMap.get(type), pos]);
   }
   setTimeout(checkGame, 100);
@@ -57,8 +55,6 @@ function resetHandler() {
 }
 
 function checkGame() {
-  console.log(typeMap);
-  console.log(posNodes);
   for (combo of win) {
     if (isSubsetOf(typeMap.get("O"), combo)) {
       alert("O won");
@@ -67,6 +63,10 @@ function checkGame() {
       alert("X won");
       resetHandler();
     }
+  }
+  if (typeMap.get("O").length + typeMap.get("X").length === 9) {
+    alert("Nobody Won!");
+    resetHandler();
   }
 }
 
